@@ -27,5 +27,5 @@ if"chat_history" not in st.session_state:
 
 user_input=st.text_input("请输入你的问题",key="input")
 
-
+if st.button("发送") and user_input.strip():
 

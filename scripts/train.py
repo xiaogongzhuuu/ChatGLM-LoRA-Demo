@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, AutoModel,training_args,trainer
+from transformers import AutoTokenizer, AutoModel,TrainingArguments, Trainer
 from peft import get_peft_model, LoraConfig,TaskType
 
 #模型名称
