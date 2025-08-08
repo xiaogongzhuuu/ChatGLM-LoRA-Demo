@@ -35,14 +35,18 @@ python scripts/train.py
 cd app
 streamlit run app.py
 ```
+访问 http://localhost:8501 与模型进行对话
 
 ## 项目结构
 
 ```
-├── app/app.py           # Web演示界面
-├── data/train.json      # 训练数据(100+条中文样本)
-├── scripts/train.py     # 训练脚本
-└── requirements.txt     # 依赖包
+├── app/app.py              # Web演示界面
+├── data/train.json         # 训练数据(100+条中文样本)
+├── scripts/train.py        # 训练脚本
+├── model/                  # 训练后的LoRA权重
+│   └── adapter_config.json # LoRA配置文件
+├── requirements.txt        # 依赖包
+└── LICENSE                 # MIT开源协议
 ```
 
 ## 数据集示例
