@@ -1,6 +1,7 @@
 from transformers import AutoTokenizer, AutoModel,TrainingArguments, Trainer,DataCollatorForSeq2Seq
 from peft import get_peft_model, LoraConfig,TaskType
-import torch,os
+import torch
+import os
 
 #模型名称
 model_name="THUDM/chatglm3-6b"
