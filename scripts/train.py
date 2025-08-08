@@ -22,6 +22,10 @@ peft_config = LoraConfig(
 #插入lora配置
 model= get_peft_model(model,peft_config)
 
+model.gradient_checkpointing_enable()
+
+model.print_trainable_parameters()
+
 #加载训练数据
 from datasets import load_dataset
 
@@ -41,10 +45,10 @@ dataset=dataset.map(format_prompt)
 def tokenize(example):
     tokenized = tokenizer(
         example["prompt"],
-        max_length=1024,
+        max_length=256,
         padding="max_length",
         truncation=True,
-        return_tensors="pt"
+        return_tensors=None
     ) 
 
     tokenized["labels"]=tokenized["input_ids"].copy()
@@ -57,14 +61,15 @@ tokenized_dataset=dataset.map(tokenize,remove_columns=dataset.column_names)
 training_args = TrainingArguments(
     output_dir="./model",
     per_device_train_batch_size=1,
-    gradient_accumulation_steps=4,
-    num_train_epochs=2,
+    gradient_accumulation_steps=8,
+    num_train_epochs=1,
     logging_steps=10,
     save_steps=50,
     learning_rate=2e-4,
     fp16=True,
     save_total_limit=1,
-    remove_unused_columns=False
+    remove_unused_columns=False,
+    label_smoothing_factor=0.1,
 )
 
 trainer = Trainer(
