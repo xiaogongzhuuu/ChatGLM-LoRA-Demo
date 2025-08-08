@@ -5,7 +5,7 @@ import torch
 
 base_model_path="THUDM/chatglm3-6b"
 
-adapter_path="/model"
+adapter_path="model"
 
 @st.cache_resource
 def load_model():
@@ -28,4 +28,10 @@ if"chat_history" not in st.session_state:
 user_input=st.text_input("请输入你的问题",key="input")
 
 if st.button("发送") and user_input.strip():
+    with st.spinner("模型正在思考中，请稍等..."):
+        response,_=model.chat(tokenizer,user_input,history=[])
+        st.session_state.chat_history.append(("你",user_input))
+        st.session_state.chat_history.append(("ChatGLM",response))
+
+
 
